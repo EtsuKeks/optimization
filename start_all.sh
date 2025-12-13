@@ -7,6 +7,7 @@ NET_MONITORS_DIR="./net"
 LOAD_ENABLED=true
 
 chmod +x $CPU_MONITORS_DIR/*.sh
+chmod +x $MEM_MONITORS_DIR/*.sh
 chmod +x ./create_load.sh
 
 cleanup() {
@@ -44,7 +45,12 @@ for script in "${CPU_MONITORS[@]}"; do
 done
 
 MEM_MONITORS=(
-    # ""
+    "file_locks.sh"
+    "io_latency.sh"
+    "iops.sh"
+    "memory_faults.sh"
+    "page_cache.sh"
+    "rss_vsz.sh"
 )
 
 for script in "${MEM_MONITORS[@]}"; do

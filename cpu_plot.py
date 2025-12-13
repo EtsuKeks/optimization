@@ -60,24 +60,23 @@ def plot_dashboard():
             cols_to_plot = [c for c in df.columns if c.startswith('cpu')]
         else:
             cols_to_plot = config['cols']
-
         window = config.get('window', 10)
         plot_data = df[cols_to_plot].rolling(window=window, min_periods=1).mean()
 
-        ax = axes[i]; colors = config.get('color', None)
-        lw = config.get('linewidth', 2.0); alpha = config.get('alpha', 1.0)
+        colors = config.get('color', None); lw = config.get('linewidth', 2.0); alpha = config.get('alpha', 1.0)
+
         plot_data.plot(ax=axes[i], color=colors, linewidth=lw, alpha=alpha)
 
         axes[i].set_title(config['title'], fontsize=14, fontweight='bold')
         axes[i].set_ylabel(config.get('ylabel', ''), fontsize=12)
         axes[i].set_xlabel('')
         axes[i].grid(True, linestyle=':', alpha=0.6)
-        ax.legend(loc='upper right', fontsize='x-small', ncol=2)
+        axes[i].legend(loc='upper right', fontsize='x-small', ncol=2)
 
-    title = f"CPU Analysis{' (Mean smoothed with window=' + WINDOW_SIZE + ')' if WINDOW_SIZE>1 else ''}"
+    title = f"CPU Analysis{' (Mean smoothed with window=' + str(WINDOW_SIZE) + ')' if WINDOW_SIZE>1 else ''}"
     smoothed_prt = 'smoothed' if WINDOW_SIZE>1 else 'unsmoothed'
     load_prt = 'load_enabled' if LOAD_ENABLED else 'load_disabled'
-    path = f"./images/cpu_load_{smoothed_prt}_{load_prt}.png"
+    path = f"./images/cpu_{smoothed_prt}_{load_prt}.png"
     plt.suptitle(title, fontsize=20)
     plt.savefig(path, dpi=150)
 

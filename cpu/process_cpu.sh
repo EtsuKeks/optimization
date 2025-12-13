@@ -1,13 +1,12 @@
 #!/bin/bash
 
-# Анализируем накопленное время потребления CPU процессом (User/System Time).
+# Анализируем накопленное время потребления CPU процессом (User/System Time) за прошедшую секунду.
 # В Linux файл /proc/PID/stat автоматически суммирует тики процессора для всех потоков (воркеров),
 # поэтому utime/stime показывают реальную утилизацию ресурсов всем Go-приложением целиком.
 # Скрипт считает мгновенную нагрузку (дельта тиков к дельте времени) и переводит накопленные тики
 # в проценты от полной секунды.
 
-PID=$1
-LOAD_ENABLED=$2
+PID=$1; LOAD_ENABLED=$2
 if [ "$LOAD_ENABLED" == "true" ]; then
     OUT="./cpu/process_cpu_load_enabled.csv"
 else
@@ -26,24 +25,17 @@ get_cpu_ticks() {
 
 # Читаем текущие user и system тики
 read -r utime stime <<< $(get_cpu_ticks $PID)
-PREV_UTIME=$utime
-PREV_STIME=$stime
-PREV_TIME=$(date +%s%N)
+PREV_UTIME=$utime; PREV_STIME=$stime; PREV_TIME=$(date +%s%N)
 
 while kill -0 $PID 2>/dev/null; do
     sleep 1
     TS=$(date +%s) # Для CSV (секунды)
     NOW=$(date +%s%N) # Для расчетов (наносекунды)
     read -r utime stime <<< $(get_cpu_ticks $PID)
-    DIFF_UTIME=$((utime - PREV_UTIME))
-    DIFF_STIME=$((stime - PREV_STIME))
-    DIFF_TIME=$((NOW - PREV_TIME))
-    USER_PCT=$(echo "scale=2; ($DIFF_UTIME / $CLK_TCK) / ($DIFF_TIME / 1000000000) * 100" | bc)
-    SYSTEM_PCT=$(echo "scale=2; ($DIFF_STIME / $CLK_TCK) / ($DIFF_TIME / 1000000000) * 100" | bc)
+    DIFF_UTIME=$((utime - PREV_UTIME)); DIFF_STIME=$((stime - PREV_STIME)); DIFF_TIME=$((NOW - PREV_TIME))
+    USER_PCT=$(echo "scale=2; ($DIFF_UTIME / $CLK_TCK) / ($DIFF_TIME / 1000000000) * 100" | bc); SYSTEM_PCT=$(echo "scale=2; ($DIFF_STIME / $CLK_TCK) / ($DIFF_TIME / 1000000000) * 100" | bc)
 
     echo "$TS,$USER_PCT,$SYSTEM_PCT" >> $OUT
 
-    PREV_UTIME=$utime
-    PREV_STIME=$stime
-    PREV_TIME=$NOW
+    PREV_UTIME=$utime; PREV_STIME=$stime; PREV_TIME=$NOW
 done
