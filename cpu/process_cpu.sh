@@ -7,7 +7,12 @@
 # в проценты от полной секунды.
 
 PID=$1
-OUT="./cpu/process_cpu.csv"
+LOAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/process_cpu_load_enabled.csv"
+else
+    OUT="./cpu/process_cpu_load_disabled.csv"
+fi
 
 # Получаем частоту процессора (ticks per second)
 CLK_TCK=$(getconf CLK_TCK)

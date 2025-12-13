@@ -7,7 +7,12 @@
 # заспавнит новый тоже вроде как.
 
 PID=$1
-OUT="./cpu/thread_count.csv"
+OAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/thread_count_load_enabled.csv"
+else
+    OUT="./cpu/thread_count_load_disabled.csv"
+fi
 
 echo "timestamp,num_threads" > $OUT
 

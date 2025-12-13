@@ -7,7 +7,12 @@
 # iowait_pct: простой из-за медленного диска (важный маркер лагов).
 
 PID=$1
-OUT="./cpu/system_cpu.csv"
+LOAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/system_cpu_load_enabled.csv"
+else
+    OUT="./cpu/system_cpu_load_disabled.csv"
+fi
 
 echo "timestamp,user_pct,system_pct,idle_pct,iowait_pct" > $OUT
 

@@ -9,7 +9,12 @@
 # воркер в среднем.
 
 PID=$1
-OUT="./cpu/context_switches.csv"
+LOAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/context_switches_load_enabled.csv"
+else
+    OUT="./cpu/context_switches_load_disabled.csv"
+fi
 
 echo "timestamp,voluntary_rate,involuntary_rate" > $OUT
 

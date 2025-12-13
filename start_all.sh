@@ -40,7 +40,7 @@ CPU_MONITORS=(
 )
 
 for script in "${CPU_MONITORS[@]}"; do
-    "$CPU_MONITORS_DIR/$script" $APP_PID &
+    "$CPU_MONITORS_DIR/$script" $APP_PID $LOAD_ENABLED &
 done
 
 MEM_MONITORS=(
@@ -48,7 +48,7 @@ MEM_MONITORS=(
 )
 
 for script in "${MEM_MONITORS[@]}"; do
-    "$MEM_MONITORS_DIR/$script" $APP_PID &
+    "$MEM_MONITORS_DIR/$script" $APP_PID $LOAD_ENABLED &
 done
 
 NET_MONITORS=(
@@ -56,7 +56,7 @@ NET_MONITORS=(
 )
 
 for script in "${NET_MONITORS[@]}"; do
-    "$NET_MONITORS_DIR/$script" $APP_PID &
+    "$NET_MONITORS_DIR/$script" $APP_PID $LOAD_ENABLED &
 done
 
 echo -e "Press [Ctrl+C] to stop the test and save data."

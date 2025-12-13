@@ -7,7 +7,12 @@
 # в прошедшую секунду. Значение 1000 мс означает полную остановку (Starvation).
 
 PID=$1
-OUT="./cpu/scheduler_wait.csv"
+LOAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/scheduler_wait_load_enabled.csv"
+else
+    OUT="./cpu/scheduler_wait_load_disabled.csv"
+fi
 
 echo "timestamp,run_delay_ms" > $OUT
 

@@ -1,7 +1,7 @@
 import pandas as pd, matplotlib.pyplot as plt, os
 
 DATA_DIR = './cpu'
-WINDOW_SIZE=30
+WINDOW_SIZE=1
 LOAD_ENABLED = True
 
 FILES = {
@@ -51,6 +51,7 @@ def plot_dashboard():
     _, axes = plt.subplots(nrows=3, ncols=2, figsize=(20, 14), constrained_layout=True)
     axes = axes.flatten()
     for i, (filename, config) in enumerate(FILES.items()):
+        filename = f"{filename[:-4]}_{'load_enabled' if LOAD_ENABLED else 'load_disabled'}.csv"
         path = os.path.join(DATA_DIR, filename)
         df = pd.read_csv(path)
         df['timestamp'] = pd.to_datetime(df['timestamp'], unit='s')

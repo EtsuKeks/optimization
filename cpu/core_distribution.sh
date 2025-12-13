@@ -7,7 +7,12 @@
 # если мы хотим отловить ситуации когда например одно ядро перегружено постоянно.
 
 PID=$1
-OUT="./cpu/core_distribution.csv"
+LOAD_ENABLED=$2
+if [ "$LOAD_ENABLED" == "true" ]; then
+    OUT="./cpu/core_distribution_load_enabled.csv"
+else
+    OUT="./cpu/core_distribution_load_disabled.csv"
+fi
 
 # Определяем количество ядер для формирования заголовка CSV
 CORES_COUNT=$(grep -c '^processor' /proc/cpuinfo)
