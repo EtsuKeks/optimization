@@ -7,13 +7,13 @@ FILES = {
         'title': 'Context Switches',
         'cols': ['voluntary_rate', 'involuntary_rate'],
         'ylabel': 'Switches/sec',
-        'window': 10,  
+        'window': 30,  
     },
     'core_distribution.csv': {
         'title': 'Per-Core Load',
         'cols': 'all_cpu',
         'ylabel': 'CPU %',
-        'window': 10,
+        'window': 30,
         'linewidth': 1.5,
         'alpha': 0.8
     },
@@ -21,27 +21,27 @@ FILES = {
         'title': 'Process CPU',
         'cols': ['user_pct', 'system_pct'],
         'ylabel': 'CPU %',
-        'window': 10,
+        'window': 30,
     },
     'scheduler_wait.csv': {
         'title': 'Scheduler Latency',
         'cols': ['run_delay_ms'],
         'ylabel': 'Milliseconds',
         'color': ['red'],
-        'window': 10,
+        'window': 30,
     },
     'system_cpu.csv': {
         'title': 'System CPU',
         'cols': ['user_pct', 'system_pct', 'iowait_pct'],
         'ylabel': 'CPU %',
-        'window': 10,
+        'window': 30,
     },
     'thread_count.csv': {
         'title': 'Active Threads Count',
         'cols': ['num_threads'],
         'ylabel': 'Count',
         'color': ['purple'],
-        'window': 10, 
+        'window': 30, 
     }
 }
 
@@ -71,7 +71,7 @@ def plot_dashboard():
         axes[i].grid(True, linestyle=':', alpha=0.6)
         ax.legend(loc='upper right', fontsize='x-small', ncol=2)
 
-    plt.suptitle(f"CPU Analysis", fontsize=20)
+    plt.suptitle(f"CPU Analysis (Mean smoothed with window=30)", fontsize=20)
     plt.savefig('cpu_plot.png', dpi=150)
 
 if __name__ == "__main__":
