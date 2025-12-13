@@ -7,6 +7,7 @@ NET_MONITORS_DIR="./net"
 LOAD_ENABLED=true
 
 chmod +x $CPU_MONITORS_DIR/*.sh
+chmod +x ./create_load.sh
 
 cleanup() {
     # pkill -P $$ убивает всех, кого породил этот скрипт

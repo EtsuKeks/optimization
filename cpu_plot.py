@@ -2,8 +2,7 @@ import pandas as pd, matplotlib.pyplot as plt, os
 
 DATA_DIR = './cpu'
 WINDOW_SIZE=30
-OUTPUT_FILE="./images/cpu_load_smoothed.png"
-TITLE="CPU Analysis (Mean smoothed with window=30)"
+LOAD_ENABLED = True
 
 FILES = {
     'context_switches.csv': {
@@ -74,8 +73,12 @@ def plot_dashboard():
         axes[i].grid(True, linestyle=':', alpha=0.6)
         ax.legend(loc='upper right', fontsize='x-small', ncol=2)
 
-    plt.suptitle(TITLE, fontsize=20)
-    plt.savefig(OUTPUT_FILE, dpi=150)
+    title = f"CPU Analysis{' (Mean smoothed with window=' + WINDOW_SIZE + ')' if WINDOW_SIZE>1 else ''}"
+    smoothed_prt = 'smoothed' if WINDOW_SIZE>1 else 'unsmoothed'
+    load_prt = 'load_enabled' if LOAD_ENABLED else 'load_disabled'
+    path = f"./images/cpu_load_{smoothed_prt}_{load_prt}.png"
+    plt.suptitle(title, fontsize=20)
+    plt.savefig(path, dpi=150)
 
 if __name__ == "__main__":
     plot_dashboard()
