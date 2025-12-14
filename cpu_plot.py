@@ -1,18 +1,18 @@
 import pandas as pd, matplotlib.pyplot as plt, os
 
 DATA_DIR = './cpu'
-WINDOW_SIZE=1
+WINDOW_SIZE = 1
 LOAD_ENABLED = True
 
 FILES = {
     'context_switches.csv': {
-        'title': 'Context Switches',
+        'title': 'Context switches',
         'cols': ['voluntary_rate', 'involuntary_rate'],
         'ylabel': 'Switches/sec',
         'window': WINDOW_SIZE,  
     },
     'core_distribution.csv': {
-        'title': 'Per-Core Load',
+        'title': 'Per-core Load',
         'cols': 'all_cpu',
         'ylabel': 'CPU %',
         'window': WINDOW_SIZE,
@@ -26,7 +26,7 @@ FILES = {
         'window': WINDOW_SIZE,
     },
     'scheduler_wait.csv': {
-        'title': 'Scheduler Latency',
+        'title': 'Scheduler latency',
         'cols': ['run_delay_ms'],
         'ylabel': 'Milliseconds',
         'color': ['red'],
@@ -39,10 +39,9 @@ FILES = {
         'window': WINDOW_SIZE,
     },
     'thread_count.csv': {
-        'title': 'Active Threads Count',
-        'cols': ['num_threads'],
+        'title': 'Active threads count with their types',
+        'cols': ["total_num","state_R","state_S","state_D","state_Z","state_T"],
         'ylabel': 'Count',
-        'color': ['purple'],
         'window': WINDOW_SIZE, 
     }
 }

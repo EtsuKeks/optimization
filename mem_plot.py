@@ -2,11 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import os
 
-# Настройки
 DATA_DIR = './mem'
-IMAGES_DIR = './images'
-WINDOW_SIZE = 1
-LOAD_ENABLED = True
+WINDOW_SIZE = 30
+LOAD_ENABLED = False
 
 FILES = {
     'file_locks.csv': {
@@ -43,8 +41,8 @@ FILES = {
     },
     'rss_vsz.csv': {
         'title': 'Memory Growth (Diff per sec)',
-        'cols': ['rss_anon', 'rss_file', 'rss_unconsidered_but_process_related', 'vsz'],
-        'ylabel': 'MB Change/sec',
+        'cols': ['rss_anon', 'rss_file', 'vsz'],
+        'ylabel': 'KB Change/sec',
         'window': WINDOW_SIZE,
     }
 }

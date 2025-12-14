@@ -3,7 +3,6 @@
 BINARY="./bin/app"
 CPU_MONITORS_DIR="./cpu"
 MEM_MONITORS_DIR="./mem"
-NET_MONITORS_DIR="./net"
 LOAD_ENABLED=true
 
 chmod +x $CPU_MONITORS_DIR/*.sh
@@ -55,14 +54,6 @@ MEM_MONITORS=(
 
 for script in "${MEM_MONITORS[@]}"; do
     "$MEM_MONITORS_DIR/$script" $APP_PID $LOAD_ENABLED &
-done
-
-NET_MONITORS=(
-    # ""
-)
-
-for script in "${NET_MONITORS[@]}"; do
-    "$NET_MONITORS_DIR/$script" $APP_PID $LOAD_ENABLED &
 done
 
 echo -e "Press [Ctrl+C] to stop the test and save data."
