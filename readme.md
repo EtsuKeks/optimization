@@ -122,7 +122,7 @@ timestamp,logical_read,logical_write,phys_read,phys_write
 
 Посмотрим на графики под нагрузкой, сначала короткий график, он самый показательный:
 
-![Текст](images/mem_smoothed_load_enabled_short.png)
+![Текст](images/mem_unsmoothed_load_enabled_short.png)
 
 Здесь из того, что еще не обсудили, только всплески page fault-ов, вызванные исключительно выделением памяти в куче, то есть при обработке запроса мы еще и выделяем что то на ней, а не только пишем в тот временный файл.
 
